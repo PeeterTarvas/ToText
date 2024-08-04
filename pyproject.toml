@@ -1,0 +1,36 @@
+[project]
+name = "lens"
+version = "0.1.0"
+description = "Add a short description here"
+authors = [{name = "Peeter Tarvas", email = "peetertarvas@gmail.com"}]
+requires-python = ">= 3.10"
+dependencies = []
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.pixi.project]
+channels = ["conda-forge"]
+platforms = ["win-64"] # future add: "linux-64", "osx-arm64", "osx-64",
+
+[tool.pixi.pypi-dependencies]
+lens = { path = ".", editable = true }
+
+[tool.pixi.tasks]
+download_dataset = { cmd = ".\\download_dataset.ps1", description = "Download and extract the EMNIST dataset", cwd = "scripts" }
+transform_data = { cmd = "python transform_data.py", description = "Transform EMNIST dataset to YOLO format", cwd = "scripts" }
+
+[tool.pixi.dependencies]
+pixi-pycharm = ">=0.0.6,<0.0.7"
+fastapi = ">=0.112.0,<0.115.0"
+numpy = ">=1.21,<2"
+uvicorn = ">=0.13.0,<0.16.0"
+opencv = "*"
+pandas = "*"
+matplotlib = "*"
+scipy = "*"
+
+[pypi-dependencies]
+pymupdf = "*"
+

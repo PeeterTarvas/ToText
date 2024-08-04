@@ -1,0 +1,1 @@
+This project uses Pixi as a project management tool: https://pixi.sh/latest/
