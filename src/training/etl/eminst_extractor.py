@@ -46,7 +46,8 @@ def load_emnist(folder_path: str, partial: bool = False, size_in_mb: int = 300):
     return emnist_train_df
 
 def filter_by_labels(df: pd.DataFrame, labels: dict) -> pd.DataFrame:
-    return df[df[0].isin(labels.values())].reset_index(drop=True)
+    print(df[0])
+    return df[df[0].isin(labels.keys())].reset_index(drop=True)
 
 def format_to_train(df: pd.DataFrame, mapping: dict[int: str]):
     x_train = df.drop(columns=[0], axis=1)
@@ -63,7 +64,7 @@ def show_images(x, y, num_images):
     for i in range(num_images):
         plt.subplot(num_rows, num_cols, i + 1)
         plt.imshow(x.iloc[i].values.reshape(28, 28), cmap='gray')
-        plt.title(f"Label: {chr(y[i])}")
+        plt.title(f"Label: {y[i]}")
         plt.axis('off')
 
     plt.tight_layout()
@@ -82,5 +83,6 @@ if __name__ == '__main__':
     # extract_zip("./resources/tars/eminst.zip", "resources/data/")
     df = load_emnist('resources/data', True, 10)
     df = filter_by_labels(df, eminst_class_mapping)
+    print(df.head())
     x_train, y_train = format_to_train(df, eminst_class_mapping)
     show_images(x_train, y_train, 10)
