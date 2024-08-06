@@ -11,7 +11,7 @@ requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [tool.pixi.project]
-channels = ["conda-forge"]
+channels = ["conda-forge", "anaconda"]
 platforms = ["win-64"] # future add: "linux-64", "osx-arm64", "osx-64",
 
 [tool.pixi.pypi-dependencies]
@@ -26,6 +26,7 @@ pixi-pycharm = ">=0.0.6,<0.0.7"
 fastapi = ">=0.112.0,<0.115.0"
 numpy = ">=1.21,<2"
 uvicorn = ">=0.13.0,<0.16.0"
+jupyter  = "*"
 opencv = "*"
 pandas = "*"
 matplotlib = "*"
