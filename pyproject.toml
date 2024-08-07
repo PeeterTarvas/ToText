@@ -31,6 +31,10 @@ opencv = "*"
 pandas = "*"
 matplotlib = "*"
 scipy = "*"
+ultralytics = "8.2.74"
+keras = "*"
+pillow = "*"
+
 
 [pypi-dependencies]
 pymupdf = "*"
