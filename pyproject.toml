@@ -34,7 +34,9 @@ scipy = "*"
 ultralytics = "8.2.74"
 keras = "*"
 pillow = "*"
-
+scikit-learn = '*'
+pytorch = ">=2.3.0,<3"
+torchvision = ">=0.18.1,<0.19"
 
 [pypi-dependencies]
 pymupdf = "*"
