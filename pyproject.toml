@@ -3,7 +3,7 @@ name = "lens"
 version = "0.1.0"
 description = "Add a short description here"
 authors = [{name = "Peeter Tarvas", email = "peetertarvas@gmail.com"}]
-requires-python = ">= 3.10"
+requires-python = ">= 3.9"
 dependencies = []
 
 [build-system]
@@ -11,7 +11,7 @@ requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [tool.pixi.project]
-channels = ["conda-forge", "anaconda"]
+channels = ["nvidia", "conda-forge", "pytorch", "anaconda"]
 platforms = ["win-64"] # future add: "linux-64", "osx-arm64", "osx-64",
 
 [tool.pixi.pypi-dependencies]
@@ -35,8 +35,11 @@ ultralytics = "8.2.74"
 keras = "*"
 pillow = "*"
 scikit-learn = '*'
-pytorch = ">=2.3.0,<3"
-torchvision = ">=0.18.1,<0.19"
+conda = ">=23.9.0,<24"
+cuda = {version = "12.1.*"}
+pytorch = {version = "2.0.1.*"}
+torchvision = {version = "0.15.2.*"}
+pytorch-cuda = {version = "12.1.*"}
 
 [pypi-dependencies]
 pymupdf = "*"
