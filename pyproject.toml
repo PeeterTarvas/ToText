@@ -2,45 +2,52 @@
 name = "lens"
 version = "0.1.0"
 description = "Add a short description here"
-authors = [{name = "Peeter Tarvas", email = "peetertarvas@gmail.com"}]
-requires-python = ">= 3.9"
-dependencies = []
+authors = [{ name = "Peeter Tarvas", email = "peetertarvas@gmail.com" }]
+requires-python = ">3.9"
 
 [build-system]
 requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [tool.pixi.project]
-channels = ["nvidia", "conda-forge", "pytorch", "anaconda"]
-platforms = ["win-64"] # future add: "linux-64", "osx-arm64", "osx-64",
+channels = ["pytorch", "nvidia", "conda-forge", "anaconda"]
+platforms = ["linux-64"]
+
 
 [tool.pixi.pypi-dependencies]
 lens = { path = ".", editable = true }
+torch = ">=2.1.2"
+torchvision = ">=0.16.2"
 
 [tool.pixi.tasks]
-download_dataset = { cmd = ".\\download_dataset.ps1", description = "Download and extract the EMNIST dataset", cwd = "scripts" }
-transform_data = { cmd = "python transform_data.py", description = "Transform EMNIST dataset to YOLO format", cwd = "scripts" }
+##download_dataset = { cmd = ".\\download_dataset.ps1", description = "Download and extract the EMNIST dataset", cwd = "scripts" }
+##transform_data = { cmd = "python transform_data.py", description = "Transform EMNIST dataset to YOLO format", cwd = "scripts" }
+
 
 [tool.pixi.dependencies]
-pixi-pycharm = ">=0.0.6,<0.0.7"
-fastapi = ">=0.112.0,<0.115.0"
 numpy = ">=1.21,<2"
-uvicorn = ">=0.13.0,<0.16.0"
-jupyter  = "*"
-opencv = "*"
 pandas = "*"
 matplotlib = "*"
 scipy = "*"
-ultralytics = "8.2.74"
-keras = "*"
+opencv = ">=4.6.0"
+ffmpeg = "5.1.*"
 pillow = "*"
-scikit-learn = '*'
+scikit-learn = "*"
+tqdm = "*"
+
+pytorch-cuda = "12.1.*"  # Updated to newer CUDA version
+keras = "*"
+ultralytics = "*"
+cuda = "12.1.*"  # Updated to match pytorch-cuda
+
+fastapi = ">=0.112.0,<0.115.0"
+uvicorn = ">=0.13.0,<0.16.0"
+
+jupyter = "*"
+
 conda = ">=23.9.0,<24"
-cuda = {version = "11.6.*"}
-pytorch = {version = "2.0.1.*"}
-torchvision = {version = "0.15.2.*"}
-pytorch-cuda = {version = "11.6.*"}
+pixi-pycharm = ">=0.0.6,<0.0.7"
+
 
 [pypi-dependencies]
 pymupdf = "*"
-
