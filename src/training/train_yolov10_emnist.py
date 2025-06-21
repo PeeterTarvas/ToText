@@ -6,7 +6,7 @@ DATA_ROOT = Path("synthetic_emnist_yolo")
 DATA_YAML_PATH = Path("emnist.yaml")
 NUM_CLASSES = 47
 IMG_SIZE = 640
-EPOCHS = 1
+EPOCHS = 150
 MODEL_ARCH = "yolov10s.pt"
 
 CHAR_MAP = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!?.,:;'\"()[]{}<>@#$%^&*+-=/\\|_"
