@@ -448,6 +448,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/webencodings-0.5.1-pyhd8ed1ab_3.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/websocket-client-1.8.0-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/widgetsnbextension-4.0.14-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/wikipedia-1.4.0-pyhd8ed1ab_3.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/x264-1!164.3095-h166bdaf_2.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/linux-64/x265-3.5-h924138e_3.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/linux-64/xcb-util-0.4.0-h166bdaf_0.tar.bz2
@@ -2992,7 +2993,7 @@ packages:
 - pypi: ./
   name: lens
   version: 0.1.0
-  sha256: 19fad08ed8e3690ddc2017bcb84ae39d6dbaddda45bba0e41ca1b9148c056f49
+  sha256: 9daa9d736640e4c9402fb16634e9139d7d2ce98ecb9c41d6679db6b3fdc18da1
   requires_python: '>3.9'
   editable: true
 - conda: https://conda.anaconda.org/conda-forge/linux-64/lerc-4.0.0-h0aef613_1.conda
@@ -6431,6 +6432,19 @@ packages:
   - pkg:pypi/widgetsnbextension?source=compressed-mapping
   size: 889285
   timestamp: 1744291155057
+- conda: https://conda.anaconda.org/conda-forge/noarch/wikipedia-1.4.0-pyhd8ed1ab_3.conda
+  sha256: f642890ee7efc34606a397ff0a8f32f90dfb6f62d53467d854103cc6d1a7fb1c
+  md5: 2667689df5f4405d0100fcafdcfbae28
+  depends:
+  - beautifulsoup4
+  - python >=3.9
+  - requests >=2.0.0,<3.0.0
+  license: MIT
+  license_family: MIT
+  purls:
+  - pkg:pypi/wikipedia?source=hash-mapping
+  size: 16973
+  timestamp: 1733124856671
 - conda: https://conda.anaconda.org/conda-forge/linux-64/x264-1!164.3095-h166bdaf_2.tar.bz2
   sha256: 175315eb3d6ea1f64a6ce470be00fa2ee59980108f246d3072ab8b977cb048a5
   md5: 6c99772d483f566d59e25037fea2c4b1

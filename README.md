@@ -10,3 +10,5 @@ configure pycharm
 
 "pixi run 'echo $CONDA_PREFIX/libexec/conda'
 "
+
+python -m src.training.generation.main

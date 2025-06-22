@@ -34,6 +34,7 @@ ffmpeg = "5.1.*"
 pillow = "*"
 scikit-learn = "*"
 tqdm = "*"
+wikipedia = "*"
 
 pytorch-cuda = "12.1.*"  # Updated to newer CUDA version
 keras = "*"

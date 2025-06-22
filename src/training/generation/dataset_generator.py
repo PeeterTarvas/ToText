@@ -3,8 +3,8 @@ import random
 from torchvision import datasets, transforms
 import uuid
 
-from .constants import DATA_ROOT, TOTAL_IMAGES, TRAIN_SPLIT
-from .generators import LineGenerator, ScatteredGenerator, DocumentGenerator
+from .constants import DATA_ROOT, TOTAL_IMAGES, TRAIN_SPLIT, CHAR_MAP
+from .generators import LineGenerator, ScatteredGenerator, DocumentGenerator, WikipediaDocumentGenerator
 
 
 class SyntheticDatasetGenerator:
@@ -20,11 +20,13 @@ class SyntheticDatasetGenerator:
         self.line_generator = LineGenerator(self.samples_by_class, self.class_map)
         self.scattered_generator = ScatteredGenerator(self.samples_by_class, self.class_map)
         self.document_generator = DocumentGenerator(self.samples_by_class, self.class_map)
+        self.wikipedia_generator = WikipediaDocumentGenerator(self.samples_by_class, self.class_map)
 
         self.generators = {
             'line': self.line_generator,
             'scattered': self.scattered_generator,
-            'document': self.document_generator
+            'document': self.document_generator,
+            'wikipedia': self.wikipedia_generator
         }
 
     def _setup_directories(self):
@@ -39,7 +41,7 @@ class SyntheticDatasetGenerator:
         transform = transforms.Compose([transforms.ToTensor()])
         emnist = datasets.EMNIST(root=DATA_ROOT, split='balanced', download=True, train=True, transform=transform)
 
-        self.class_map = list(range(94))
+        self.class_map = list(range(len(CHAR_MAP)))
         self.samples_by_class = {i: [] for i in self.class_map}
 
         for img, label in emnist:
@@ -55,8 +57,8 @@ class SyntheticDatasetGenerator:
             split = 'train' if idx < train_cutoff else 'val'
 
             generation_type = random.choices(
-                ['line', 'scattered', 'document'],
-                weights=[0.33, 0.33, 0.34]
+                ['line', 'scattered', 'document', 'wikipedia'],
+                weights=[0.25, 0.25, 0.25, 0.25]
             )[0]
 
             generator = self.generators[generation_type]

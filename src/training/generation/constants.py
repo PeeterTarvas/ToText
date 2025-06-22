@@ -31,14 +31,17 @@ FONT_PATHS = [
 ]
 
 CUSTOM_FONT_DIR = Path("src/training/resources/fonts")
+print("Resolved Path:", CUSTOM_FONT_DIR.resolve())
+print("Exists:", CUSTOM_FONT_DIR.exists())
 if CUSTOM_FONT_DIR.exists():
-    custom_fonts = list(CUSTOM_FONT_DIR.glob("**/*.ttf")) + list(CUSTOM_FONT_DIR.glob("**/*.otf"))
+    custom_fonts = list(CUSTOM_FONT_DIR.glob("**/*.ttf")) + list(CUSTOM_FONT_DIR.glob("**/*.otf")) + list(CUSTOM_FONT_DIR.glob("**/*.TTF"))
     FONT_PATHS += [str(font_path) for font_path in custom_fonts]
+
+print(FONT_PATHS)
 
 # Character mapping
 CHAR_MAP = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!?.,:;'\"()[]{}<>@#$%^&*+-=/\\|_"
 
-# Lorem ipsum text
 LOREM_IPSUM = """
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
