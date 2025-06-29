@@ -2,6 +2,9 @@ import os
 import random
 from torchvision import datasets, transforms
 import uuid
+import numpy as np
+from PIL import Image
+from .augmentors import Augmenter
 
 from .constants import DATA_ROOT, TOTAL_IMAGES, TRAIN_SPLIT, CHAR_MAP
 from .generators import LineGenerator, ScatteredGenerator, DocumentGenerator, WikipediaDocumentGenerator
@@ -28,6 +31,8 @@ class SyntheticDatasetGenerator:
             'document': self.document_generator,
             'wikipedia': self.wikipedia_generator
         }
+
+        self.augmenter = Augmenter()
 
     def _setup_directories(self):
         """Create necessary directories"""
@@ -63,6 +68,12 @@ class SyntheticDatasetGenerator:
 
             generator = self.generators[generation_type]
             img, label_lines = generator.generate()
+
+            img = img.convert('RGB')
+            if random.random() < 0.5:
+                img_np = np.array(img)
+                img_np = self.augmenter.random_augment(img_np)
+                img = Image.fromarray(img_np)
 
             uuid_name_tag = uuid.uuid4()
             img_name = f"{generation_type}_{idx}_{uuid_name_tag}.png"

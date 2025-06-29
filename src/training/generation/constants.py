@@ -4,7 +4,7 @@ from pathlib import Path
 IMG_SIZE = 640
 MIN_CHARS_PER_IMAGE = 30
 MAX_CHARS_PER_IMAGE = 200
-TOTAL_IMAGES = 10
+TOTAL_IMAGES = 250
 TRAIN_SPLIT = 0.8
 DATA_ROOT = Path("synthetic_emnist_yolo")
 
@@ -23,7 +23,6 @@ CHAR_SPACING_RANGE = (5, 20)
 LINE_SPACING_RANGE = (30, 50)
 FONT_SIZE_RANGE = (24, 36)
 
-# Font paths
 FONT_PATHS = [
     "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
     "/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf",
@@ -31,15 +30,10 @@ FONT_PATHS = [
 ]
 
 CUSTOM_FONT_DIR = Path("src/training/resources/fonts")
-print("Resolved Path:", CUSTOM_FONT_DIR.resolve())
-print("Exists:", CUSTOM_FONT_DIR.exists())
 if CUSTOM_FONT_DIR.exists():
     custom_fonts = list(CUSTOM_FONT_DIR.glob("**/*.ttf")) + list(CUSTOM_FONT_DIR.glob("**/*.otf")) + list(CUSTOM_FONT_DIR.glob("**/*.TTF"))
     FONT_PATHS += [str(font_path) for font_path in custom_fonts]
 
-print(FONT_PATHS)
-
-# Character mapping
 CHAR_MAP = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!?.,:;'\"()[]{}<>@#$%^&*+-=/\\|_"
 
 LOREM_IPSUM = """

@@ -3,7 +3,7 @@ import random
 import matplotlib.pyplot as plt
 import itertools
 from skimage.util import random_noise
-
+import cv2
 
 class Augmenter:
 
@@ -31,17 +31,10 @@ class Augmenter:
         return aug_img
 
     def blur(self, image):
-        blur_val = random.randint(5, 15)  # blur value random
+        blur_val = random.randint(1, 3)
         aug_img = cv2.blur(image, (blur_val, blur_val))
         return aug_img
 
-    def rotate(self, image):
-        rows, cols = image.shape[:2]
-        Cx, Cy = rows, cols
-        rand_angle = random.randint(-10, 10)  # random angle range
-        M = cv2.getRotationMatrix2D((Cy // 2, Cx // 2), rand_angle, 1)  # center angle scale
-        aug_img_rotate = cv2.warpAffine(image, M, (cols, rows))  # apply rotation matrix such as previously explained
-        return aug_img_rotate
 
     def erode(self, image):
         kernel = np.ones((1, 1), np.uint8)
@@ -70,23 +63,40 @@ class Augmenter:
     def canny_edge(self, image):
         return cv2.Canny(image, 100, 200)
 
-    def augment_image(self, image, methods: list):
-        augmentor = Augmenter()
-        for i in methods:
-            if i == 0:
-                image = augmentor.bilateral_filter(image)
-            elif i == 1:
-                image = augmentor.rotate(image)
-            elif i == 2:
-                image = augmentor.noise(image)
-            elif i == 3:
-                image = augmentor.blur(image)
-            elif i == 4:
-                image = augmentor.erode(image)
-            elif i == 5:
-                image = augmentor.convolute(image)
-            elif i == 6:
-                image = augmentor.dialate(image)
+    def change_colors(self, image):
+        hsv = cv2.cvtColor(image, cv2.COLOR_RGB2HSV)
+        h, s, v = cv2.split(hsv)
+
+        h_shift = random.randint(-10, 10)
+        s_shift = random.randint(-40, 40)
+        v_shift = random.randint(-30, 30)
+
+        h = (h.astype(np.int16) + h_shift)
+        h = np.clip(h, 0, 179).astype(np.uint8)
+        s = np.clip(s.astype(np.int16) + s_shift, 0, 255).astype(np.uint8)
+        v = np.clip(v.astype(np.int16) + v_shift, 0, 255).astype(np.uint8)
+
+        hsv = cv2.merge([h, s, v])
+        return cv2.cvtColor(hsv, cv2.COLOR_HSV2RGB)
+
+    def random_augment(self, image):
+        methods = [
+            self.bilateral_filter,
+            self.change_colors,
+            self.noise,
+            self.blur,
+            self.erode,
+            self.convolute,
+            self.dialate,
+            self.median_filter
+        ]
+        num_augmentations = random.randint(1, 3)
+        selected_methods = random.sample(methods, num_augmentations)
+
+        random.shuffle(selected_methods)
+        for method in selected_methods:
+            image = method(image)
+
         return image
 
     def augment_images(self, n_of_images_output: int, image):
@@ -116,7 +126,3 @@ class Augmenter:
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         image = cv2.resize(image, (640, 480))
         return image
-
-
-
-

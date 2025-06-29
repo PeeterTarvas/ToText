@@ -35,6 +35,7 @@ pillow = "*"
 scikit-learn = "*"
 tqdm = "*"
 wikipedia = "*"
+scikit-image = "*"
 
 pytorch-cuda = "12.1.*"  # Updated to newer CUDA version
 keras = "*"
