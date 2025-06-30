@@ -11,7 +11,7 @@ from ..constants import (
 class DocumentGenerator(BaseDataGenerator):
     """Generator for document-style layouts with random text"""
 
-    def generate(self):
+    def generate(self, max_chars=None):
         """Generate an A4-style document page with random text lines"""
         img = Image.new('L', (IMG_SIZE, IMG_SIZE), color=255)
         draw = ImageDraw.Draw(img)

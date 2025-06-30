@@ -20,9 +20,9 @@ class WikipediaDocumentGenerator(DocumentGenerator):
         except Exception:
             text = wikipedia.summary("Artificial intelligence")
         wiki_text = self.filter_unsupported_chars(text)
-        return wiki_text.strip().replace('\n', ' ')[:5000]
+        return wiki_text.strip().replace('\n', ' ')[:400]
 
-    def generate(self):
+    def generate(self, max_chars=None):
         """Generate an image using Wikipedia text"""
         text = self.get_wikipedia_text()
 

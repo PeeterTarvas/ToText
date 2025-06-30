@@ -31,7 +31,7 @@ class Augmenter:
         return aug_img
 
     def blur(self, image):
-        blur_val = random.randint(1, 3)
+        blur_val = random.randint(1, 2)
         aug_img = cv2.blur(image, (blur_val, blur_val))
         return aug_img
 
@@ -63,6 +63,35 @@ class Augmenter:
     def canny_edge(self, image):
         return cv2.Canny(image, 100, 200)
 
+    def salt_and_pepper_noise(self, image):
+        return random_noise(image, mode='s&p', amount=random.uniform(0.01, 0.05))
+
+    def perlin_noise(self, image):
+        rows, cols = image.shape[:2]
+        noise = np.random.rand(rows, cols) * 255
+        noise = cv2.GaussianBlur(noise, (15, 15), 0)
+        noise_img = cv2.addWeighted(image, 0.7, noise.astype(image.dtype), 0.3, 0)
+        return noise_img
+
+    def add_shadow(self, image):
+        rows, cols = image.shape[:2]
+        shadow_intensity = random.uniform(0.3, 0.7)
+        shadow_mask = np.zeros_like(image, dtype=np.float32)
+        x1, y1 = 0, random.randint(0, rows // 2)
+        x2, y2 = cols, random.randint(rows // 2, rows)
+        cv2.line(shadow_mask, (x1, y1), (x2, y2), (shadow_intensity, shadow_intensity, shadow_intensity), thickness=random.randint(50, 150))
+        shadow_mask = cv2.GaussianBlur(shadow_mask, (101, 101), 0)
+        return cv2.subtract(image.astype(np.float32), shadow_mask).clip(0, 255).astype(np.uint8)
+
+    def add_lighting_gradient(self, image):
+        rows, cols = image.shape[:2]
+        gradient = np.zeros_like(image, dtype=np.float32)
+        start_color = random.randint(0, 128)
+        end_color = random.randint(128, 255)
+        for i in range(rows):
+            gradient[i, :] = start_color + (end_color - start_color) * (i / rows)
+        return cv2.addWeighted(image, 0.7, gradient.astype(image.dtype), 0.3, 0)
+
     def change_colors(self, image):
         hsv = cv2.cvtColor(image, cv2.COLOR_RGB2HSV)
         h, s, v = cv2.split(hsv)
@@ -79,7 +108,7 @@ class Augmenter:
         hsv = cv2.merge([h, s, v])
         return cv2.cvtColor(hsv, cv2.COLOR_HSV2RGB)
 
-    def random_augment(self, image):
+    def random_augment(self, image, num_augmentations=None):
         methods = [
             self.bilateral_filter,
             self.change_colors,
@@ -90,8 +119,10 @@ class Augmenter:
             self.dialate,
             self.median_filter
         ]
-        num_augmentations = random.randint(1, 3)
-        selected_methods = random.sample(methods, num_augmentations)
+        if num_augmentations is None:
+            num_augmentations = random.randint(1, 3)
+        
+        selected_methods = random.sample(methods, min(num_augmentations, len(methods)))
 
         random.shuffle(selected_methods)
         for method in selected_methods:

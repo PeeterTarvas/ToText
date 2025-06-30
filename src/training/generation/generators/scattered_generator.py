@@ -45,7 +45,7 @@ class ScatteredGenerator(BaseDataGenerator):
 
         return None, None
 
-    def generate(self):
+    def generate(self, max_chars=None):
         """Generate an image with scattered character layout"""
         img = Image.new('L', (IMG_SIZE, IMG_SIZE), color=255)
         draw = ImageDraw.Draw(img)
@@ -56,7 +56,7 @@ class ScatteredGenerator(BaseDataGenerator):
         grid_height = IMG_SIZE // grid_size + 1
         occupied_grid = [[False] * grid_width for _ in range(grid_height)]
 
-        chars_per_image = random.randint(MIN_CHARS_PER_IMAGE, MAX_CHARS_PER_IMAGE)
+        chars_per_image = random.randint(MIN_CHARS_PER_IMAGE, max_chars)
         chars_placed = 0
 
         while chars_placed < chars_per_image:

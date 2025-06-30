@@ -2,9 +2,9 @@ from pathlib import Path
 
 # Image generation constants
 IMG_SIZE = 640
-MIN_CHARS_PER_IMAGE = 30
+MIN_CHARS_PER_IMAGE = 5
 MAX_CHARS_PER_IMAGE = 200
-TOTAL_IMAGES = 250
+TOTAL_IMAGES = 500
 TRAIN_SPLIT = 0.8
 DATA_ROOT = Path("synthetic_emnist_yolo")
 
