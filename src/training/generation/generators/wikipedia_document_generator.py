@@ -99,6 +99,12 @@ class WikipediaDocumentGenerator(DocumentGenerator):
                 y_center = (y + char_height / 2) / IMG_SIZE
                 width = char_width / IMG_SIZE
                 height = char_height / IMG_SIZE
+
+                x_center = max(0.0, min(1.0, x_center))
+                y_center = max(0.0, min(1.0, y_center))
+                width = max(0.0, min(1.0 - x_center, width))
+                height = max(0.0, min(1.0 - y_center, height))
+
                 class_id = CHAR_MAP.index(char) % len(self.class_map)
 
                 label_lines.append(

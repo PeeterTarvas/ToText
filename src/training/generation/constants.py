@@ -4,14 +4,14 @@ from pathlib import Path
 IMG_SIZE = 640
 MIN_CHARS_PER_IMAGE = 5
 MAX_CHARS_PER_IMAGE = 200
-TOTAL_IMAGES = 500
+TOTAL_IMAGES = 5000
 TRAIN_SPLIT = 0.8
 DATA_ROOT = Path("synthetic_emnist_yolo")
 
 # Document generation constants
 DOC_MARGIN = 40
 MIN_DOC_FONT_SIZE = 10
-MAX_DOC_FONT_SIZE = 20
+MAX_DOC_FONT_SIZE = 16
 DOC_LINE_SPACING_FACTOR = 1.3
 
 # Augmentation constants
@@ -23,8 +23,10 @@ CHAR_SPACING_RANGE = (5, 20)
 LINE_SPACING_RANGE = (30, 50)
 FONT_SIZE_RANGE = (24, 36)
 
+DEFAULT_FONT_PATH = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
+
 FONT_PATHS = [
-    "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
+    DEFAULT_FONT_PATH,
     "/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf",
     "/usr/share/fonts/truetype/freefont/FreeMono.ttf",
 ]

@@ -20,7 +20,7 @@ class DocumentGenerator(BaseDataGenerator):
         font_size = random.randint(MIN_DOC_FONT_SIZE, MAX_DOC_FONT_SIZE)
         font = self.get_random_font(size=font_size)
         line_spacing = int(font_size * DOC_LINE_SPACING_FACTOR)
-        max_width = IMG_SIZE - 2 * DOC_MARGIN
+        max_width = IMG_SIZE - 5 * DOC_MARGIN
 
         paragraphs = []
         num_paragraphs = random.randint(3, 8)  # Number of paragraphs

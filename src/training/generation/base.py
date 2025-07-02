@@ -5,7 +5,7 @@ from PIL import Image, ImageOps, ImageFont, ImageDraw, ImageFilter, ImageEnhance
 from torchvision import transforms
 
 from .constants import (
-    FONT_PATHS, FONT_SIZE_RANGE, ROTATION_RANGE, SCALE_RANGE, CHAR_MAP
+    DEFAULT_FONT_PATH, FONT_PATHS, FONT_SIZE_RANGE, ROTATION_RANGE, SCALE_RANGE, CHAR_MAP
 )
 
 
@@ -39,9 +39,25 @@ class BaseDataGenerator(ABC):
         return img
 
     def generate_font_char(self, char, font=None):
-        """Generate a character image using a font"""
+        """Generate a character image using a font, with fallback"""
         if font is None:
             font = self.get_random_font()
+
+        try:
+            mask = font.getmask(char)
+            if mask.getbbox() is None:
+                raise ValueError(f"Unsupported character '{char}' in font {font.getname()[0]}")
+        except (ValueError, IndexError):
+            default_font = ImageFont.truetype(DEFAULT_FONT_PATH, font.size)
+            try:
+                mask = font.getmask(char)
+                if mask.getbbox() is None:
+                    font = self.get_supported_font_for_char(char)
+                else:
+                    font = default_font
+            except (ValueError, IndexError):
+                font = ImageFont.load_default()
+
         bbox = font.getbbox(char)
         width = bbox[2] - bbox[0]
         height = bbox[3] - bbox[1]
@@ -51,6 +67,18 @@ class BaseDataGenerator(ABC):
         draw.text((padding - bbox[0], padding - bbox[1]), char, font=font, fill=0)
         img = self.augment_image(img)
         return img
+
+    def get_supported_font_for_char(self, char, size=None):
+        if size is None:
+            size = random.randint(*FONT_SIZE_RANGE)
+        for path in FONT_PATHS:
+            try:
+                font = ImageFont.truetype(path, size)
+                if font.getmask(char).getbbox() is not None:
+                    return font
+            except Exception:
+                continue
+        return ImageFont.load_default()
 
     def get_random_char_image(self, font=None):
         """Get a random character image from font or EMNIST"""

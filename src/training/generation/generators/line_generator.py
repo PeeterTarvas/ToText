@@ -24,7 +24,7 @@ class LineGenerator(BaseDataGenerator):
                 continue
 
             w, h = char_img.size
-            if x + w > IMG_SIZE - 10:
+            if x + w > IMG_SIZE:
                 break
 
             grid_x = x // 10

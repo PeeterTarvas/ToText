@@ -125,6 +125,7 @@ class Augmenter:
         selected_methods = random.sample(methods, min(num_augmentations, len(methods)))
 
         random.shuffle(selected_methods)
+        selected_methods = set(selected_methods)
         for method in selected_methods:
             image = method(image)
 

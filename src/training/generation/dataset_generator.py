@@ -23,18 +23,17 @@ def _generate_one_image(idx, total_images, train_split, samples_by_class, class_
         max_chars = MAX_CHARS_PER_IMAGE * 0.1
     elif difficulty < 0.3:
         generation_type = random.choice(['line', 'scattered'])
-        num_augmentations = random.randint(1, 2)
+        num_augmentations = 1
         max_chars = MAX_CHARS_PER_IMAGE * 0.3
     elif difficulty < 0.55:
         generation_type = random.choice(['line', 'scattered', 'document'])
-        num_augmentations = random.randint(1, 3)
+        num_augmentations = 1
         max_chars = MAX_CHARS_PER_IMAGE * 0.6
     else:
         generation_type = random.choice(['line', 'scattered', 'document', 'wikipedia'])
-        num_augmentations = random.randint(2, 4)
+        num_augmentations = 1
         max_chars = MAX_CHARS_PER_IMAGE
 
-    # Create generators locally (ensures thread safety)
     generators = {
         'line': LineGenerator(samples_by_class, class_map),
         'scattered': ScatteredGenerator(samples_by_class, class_map),
@@ -49,7 +48,7 @@ def _generate_one_image(idx, total_images, train_split, samples_by_class, class_
     img, label_lines = generator.generate(max_chars=max_chars)
     img = img.convert('RGB')
 
-    if random.random() < 0.5:
+    if random.random() < 0.6:
         img_np = np.array(img)
         img_np = augmenter.random_augment(img_np, num_augmentations=num_augmentations)
         img = Image.fromarray(img_np)
