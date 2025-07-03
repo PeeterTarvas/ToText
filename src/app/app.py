@@ -44,8 +44,6 @@ def convert_pdf_to_images(pdf_path):
     return images
 
 def recognize_letters_from_image(img):
-    # Placeholder function for recognizing letters from an image
-    # Replace this with your actual letter recognition logic
     return "recognized_text"
 
 if __name__ == "__main__":

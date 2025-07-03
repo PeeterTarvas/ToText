@@ -64,11 +64,6 @@ def main(image_path, weights_path):
 
 # If running from CLI:
 if __name__ == "__main__":
-    #if len(sys.argv) != 3:
-    #    print("Usage: python yolo_emnist_ocr.py <image_path> <weights_path>")
-    #else:
-        #image_path = sys.argv[1]
-        #weights_path = sys.argv[2]
     image_path = "src/training/results/run1/rubric.png"
     weights_path = "training/results/run1/iteration1_best.pt"
     main(image_path, weights_path)
