@@ -12,3 +12,6 @@ configure pycharm
 "
 
 python -m src.training.generation.main
+
+
+To start internal server: python /home/peeter/ToText/src/app/app.py
