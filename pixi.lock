@@ -3186,7 +3186,7 @@ packages:
 - pypi: ./
   name: lens
   version: 0.1.0
-  sha256: c7ec6022cca0a023fe2456346ca43f0ff880822f01d674eb33c9188ba507492a
+  sha256: 9e7c1f17ccc25bfb1a88c79dec4a7417c4164010da0a01e6e47b29424b69ca47
   requires_python: '>3.9'
   editable: true
 - conda: https://conda.anaconda.org/conda-forge/linux-64/lerc-4.0.0-h0aef613_1.conda
