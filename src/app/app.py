@@ -46,7 +46,7 @@ def reconstruct_text(lines_dict):
         lines_text.append(text_line)
     return lines_text
 
-model_weights = "training/results/run1/iteration1_best.pt"
+model_weights = "../training/results/run1/last.pt"
 model = load_model(model_weights)
 
 @app.post("/detect/")

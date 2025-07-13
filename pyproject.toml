@@ -19,6 +19,7 @@ lens = { path = ".", editable = true }
 torch = ">=2.1.2"
 torchvision = ">=0.16.2"
 python-multipart = "*"
+kaggle = "*"
 
 [tool.pixi.tasks]
 ##download_dataset = { cmd = ".\\download_dataset.ps1", description = "Download and extract the EMNIST dataset", cwd = "scripts" }
